@@ -1,8 +1,7 @@
 name: CD Pipeline - Azure Container Apps
 
 on:
-  push:
-    branches: [main, master]
+  workflow_dispatch: # Trigger manually when Azure ACR secrets are configured
 
 permissions:
   id-token: write
