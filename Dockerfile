@@ -10,7 +10,9 @@ FROM python:3.12-slim AS base
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    HF_HOME=/tmp/cache/huggingface \
+    FASTEMBED_CACHE_PATH=/tmp/cache/fastembed
 
 WORKDIR /app
 
@@ -31,8 +33,10 @@ RUN pip install --prefix=/install -r requirements.txt
 # --- Stage 3: Backend Runtime (FastAPI) ---
 FROM base AS backend
 
-# Create non-root system user for security
-RUN groupadd -r appgroup && useradd -r -g appgroup -d /app -s /sbin/nologin appuser
+# Create non-root system user and directories
+RUN groupadd -r appgroup && useradd -r -g appgroup -d /app -s /sbin/nologin appuser \
+    && mkdir -p /tmp/cache/huggingface /tmp/cache/fastembed /app \
+    && chown -R appuser:appgroup /tmp/cache /app
 
 # Copy installed packages from builder
 COPY --from=builder /install /usr/local
@@ -44,7 +48,7 @@ USER appuser
 
 EXPOSE 8000
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
 CMD ["uvicorn", "src.api.app:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
@@ -52,8 +56,10 @@ CMD ["uvicorn", "src.api.app:app", "--host", "0.0.0.0", "--port", "8000", "--wor
 # --- Stage 4: Frontend Runtime (Streamlit) ---
 FROM base AS frontend
 
-# Create non-root system user
-RUN groupadd -r appgroup && useradd -r -g appgroup -d /app -s /sbin/nologin appuser
+# Create non-root system user and directories
+RUN groupadd -r appgroup && useradd -r -g appgroup -d /app -s /sbin/nologin appuser \
+    && mkdir -p /app \
+    && chown -R appuser:appgroup /app
 
 # Copy installed packages from builder
 COPY --from=builder /install /usr/local
