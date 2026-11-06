@@ -1,0 +1,492 @@
+You are a Principal AI Architect, Principal Python Engineer, Principal Azure Cloud Architect, Principal AI Engineer, and Principal DevOps Engineer.
+
+Your task is to design and implement a production-ready Agentic RAG platform using Azure services, LangGraph, LangChain, MCP tools, Docker, GitHub Actions, and FastAPI.
+
+=================================================
+BUSINESS GOAL
+=================================================
+
+Build an enterprise conversational AI platform that can answer questions from a knowledge base containing 100,000+ documents.
+
+The application should expose ONLY a chat experience to end users.
+
+Users must NOT see:
+
+- Document upload pages
+- Admin dashboards
+- Search pages
+- Tool configuration
+- Agent configuration
+- Monitoring views
+
+Users should only see:
+
+1. Chat Interface
+2. Chat History
+3. Previous Conversation Threads
+4. New Chat Button
+
+Experience should be similar to:
+
+- ChatGPT
+- Microsoft Copilot
+- Claude
+
+=================================================
+TECHNICAL REQUIREMENTS
+=================================================
+
+Language:
+
+- Python 3.12+
+
+Backend:
+
+- FastAPI
+- Async First Architecture
+
+Frontend:
+
+- Streamlit
+
+Containerization:
+
+- Docker
+
+Version Control:
+
+- GitHub
+
+CI/CD:
+
+- GitHub Actions
+
+Cloud:
+
+- Azure
+
+=================================================
+AZURE SERVICES
+=================================================
+
+Use:
+
+- Azure OpenAI
+- Azure AI Search
+- Azure Blob Storage
+- Azure Cosmos DB
+- Azure Key Vault
+- Azure Managed Identity
+- Azure Application Insights
+- Azure Container Apps
+
+Do NOT use:
+
+- AKS unless absolutely required
+- Azure Functions
+- Azure ML
+
+Keep architecture simple.
+
+=================================================
+RAG REQUIREMENTS
+=================================================
+
+Implement enterprise RAG supporting:
+
+100,000+ documents
+
+Document Types:
+
+PDF
+DOCX
+PPTX
+TXT
+HTML
+
+Retrieval Strategy:
+
+Hybrid Search
+
+Components:
+
+BM25
+Vector Search
+Semantic Search
+
+Use:
+
+Azure AI Search
+
+Embedding Model:
+
+text-embedding-3-small
+
+Generation Model:
+
+GPT-4o
+
+=================================================
+AGENTIC ARCHITECTURE
+=================================================
+
+Framework:
+
+LangGraph
+
+Library:
+
+LangChain
+
+Architecture Style:
+
+Agentic RAG
+
+Implement only required agents.
+
+Required Agents:
+
+1. Supervisor Agent
+2. Planner Agent
+3. Retrieval Agent
+4. MCP Tool Agent
+5. Response Agent
+6. Citation Agent
+
+Avoid over-engineering.
+
+=================================================
+LANGGRAPH WORKFLOW
+=================================================
+
+Graph Flow:
+
+START
+
+→ Planner Agent
+
+→ Decision Node
+
+IF Retrieval Needed
+
+→ Retrieval Agent
+
+IF Tool Required
+
+→ MCP Tool Agent
+
+→ Response Agent
+
+→ Citation Agent
+
+→ END
+
+Must include:
+
+- State Management
+- Retry Logic
+- Error Recovery
+- Async Execution
+
+=================================================
+MCP REQUIREMENTS
+=================================================
+
+Implement MCP integration.
+
+Do NOT create custom MCP servers.
+
+Only use MCP clients.
+
+Tools:
+
+1. Tavily Search MCP
+
+Purpose:
+
+- Web Search
+- Public Knowledge Retrieval
+
+2. SQL MCP Tool
+
+Purpose:
+
+- Structured Data Retrieval
+- Enterprise Database Queries
+
+Architecture:
+
+Agent
+    |
+MCP Client
+    |
+External MCP Server
+
+Implement only client-side integrations.
+
+Do not build server-side MCP implementations.
+
+=================================================
+MEMORY REQUIREMENTS
+=================================================
+
+Implement:
+
+Conversation Memory
+
+Store:
+
+- Conversation ID
+- User ID
+- Thread Title
+- Messages
+- Timestamps
+
+Database:
+
+Azure Cosmos DB
+
+Requirements:
+
+- Chat History Retrieval
+- Previous Threads
+- Thread Continuation
+- Searchable History
+
+=================================================
+FRONTEND REQUIREMENTS
+=================================================
+
+Build a minimal Streamlit interface.
+
+Sidebar:
+
+- New Chat
+- Previous Chats
+
+Main Area:
+
+- Messages
+- User Input
+
+No other pages.
+
+No dashboards.
+
+No configuration screens.
+
+No administration screens.
+
+UI must resemble modern AI assistants.
+
+=================================================
+FASTAPI REQUIREMENTS
+=================================================
+
+Create APIs:
+
+POST /chat
+
+GET /conversations
+
+GET /conversation/{id}
+
+POST /feedback
+
+Health endpoint:
+
+GET /health
+
+All APIs must be async.
+
+=================================================
+REPOSITORY STRUCTURE
+=================================================
+
+Use Clean Architecture.
+
+src/
+
+├── api/
+├── agents/
+├── graph/
+├── rag/
+├── memory/
+├── mcp/
+├── services/
+├── domain/
+├── infrastructure/
+├── models/
+├── core/
+
+Follow:
+
+SOLID
+DDD
+Dependency Injection
+
+=================================================
+DOCKER REQUIREMENTS
+=================================================
+
+Generate:
+
+Dockerfile
+
+docker-compose.yml
+
+Requirements:
+
+- FastAPI Container
+- Streamlit Container
+
+Multi-stage production builds.
+
+Optimized image size.
+
+=================================================
+CI/CD REQUIREMENTS
+=================================================
+
+Use GitHub Actions only.
+
+Generate:
+
+1. Build Pipeline
+2. Test Pipeline
+3. Security Scan
+4. Docker Build
+5. Docker Push
+6. Azure Container Apps Deployment
+
+Requirements:
+
+Automatic deployment:
+
+main branch
+    ->
+Azure Container Apps
+
+=================================================
+SECURITY REQUIREMENTS
+=================================================
+
+Implement:
+
+Azure AD Authentication
+
+Managed Identity
+
+Key Vault
+
+RBAC
+
+Prompt Injection Protection
+
+Output Validation
+
+Secrets must never exist in source code.
+
+All secrets retrieved from Key Vault.
+
+=================================================
+OBSERVABILITY
+=================================================
+
+Implement:
+
+Application Insights
+
+OpenTelemetry
+
+Structured Logging
+
+Token Tracking
+
+Latency Tracking
+
+Error Tracking
+
+=================================================
+PERFORMANCE REQUIREMENTS
+=================================================
+
+Target:
+
+Response Time < 3 seconds
+
+Concurrent Users: 1000+
+
+Document Count:
+
+100,000+
+
+Chunk Count:
+
+2M+
+
+Support:
+
+Async Processing
+
+Connection Pooling
+
+Caching
+
+=================================================
+OUTPUT FORMAT
+=================================================
+
+Generate the project in phases:
+
+Phase 1:
+Solution Architecture
+
+Phase 2:
+Agent Architecture
+
+Phase 3:
+LangGraph Design
+
+Phase 4:
+MCP Integration Design
+
+Phase 5:
+Database Design
+
+Phase 6:
+API Design
+
+Phase 7:
+Repository Structure
+
+Phase 8:
+Docker Design
+
+Phase 9:
+GitHub Actions CI/CD
+
+Phase 10:
+Implementation Code
+
+Phase 11:
+Deployment Guide
+
+Phase 12:
+Production Readiness Checklist
+
+For every phase provide:
+
+- Architecture diagrams
+- Sequence diagrams
+- Folder structures
+- Code
+- Design decisions
+- Trade-offs
+- Best practices
+
+Always generate production-grade enterprise code.
+
+Never generate demo-level code.
+Never generate toy implementations.
+Never generate proof-of-concept architecture.
