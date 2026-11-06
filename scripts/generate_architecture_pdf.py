@@ -271,11 +271,11 @@ def build_pdf(filename="Enterprise_Agentic_RAG_Architecture_Guide.pdf"):
 
     story.append(Spacer(1, 12))
 
-    # 6. Live Production URLs
-    story.append(Paragraph("6. Live Production Deployment Details", h1_style))
-    story.append(Paragraph("<b>Streamlit Frontend App:</b> <font color='#1d4ed8'><u>https://aca-rag-frontend.salmonriver-feff8fb1.eastus.azurecontainerapps.io/</u></font>", body_style))
-    story.append(Paragraph("<b>FastAPI Swagger Docs:</b> <font color='#1d4ed8'><u>https://aca-rag-backend.salmonriver-feff8fb1.eastus.azurecontainerapps.io/docs</u></font>", body_style))
-    story.append(Paragraph("<b>Backend Health API:</b> <font color='#1d4ed8'><u>https://aca-rag-backend.salmonriver-feff8fb1.eastus.azurecontainerapps.io/health</u></font>", body_style))
+    # 6. Deployment Configuration
+    story.append(Paragraph("6. Production Deployment Configuration", h1_style))
+    story.append(Paragraph("<b>Streamlit Frontend:</b> Azure Container App (Port 8501, Ingress: External)", body_style))
+    story.append(Paragraph("<b>FastAPI Backend:</b> Azure Container App (Port 8000, Ingress: External)", body_style))
+    story.append(Paragraph("<b>Deployment Platform:</b> Azure Container Apps (Scale-to-Zero Enabled)", body_style))
     story.append(Paragraph("<b>GitHub Repository:</b> <font color='#1d4ed8'><u>https://github.com/tadevilas/End-to-End-AgenticBot-Azure-</u></font>", body_style))
 
     doc.build(story, canvasmaker=NumberedCanvas)

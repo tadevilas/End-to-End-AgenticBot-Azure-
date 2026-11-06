@@ -480,21 +480,21 @@ flowchart TD
 
 ## 9. Live Production Deployment & Verification
 
-### 9.1 Deployed Services on Azure Container Apps (East US)
+### 9.1 Deployed Services on Azure Container Apps
 
-| Service | Container App Name | Image | Port | Live Public URL |
+| Service | Container App Name | Image | Port | Endpoint Configuration |
 | :--- | :--- | :--- | :---: | :--- |
-| **Streamlit UI** | `aca-rag-frontend` | `tadevilas/agentic-bot-azure-frontend:latest` | `8501` | [https://aca-rag-frontend.salmonriver-feff8fb1.eastus.azurecontainerapps.io/](https://aca-rag-frontend.salmonriver-feff8fb1.eastus.azurecontainerapps.io/) |
-| **FastAPI Backend** | `aca-rag-backend` | `tadevilas/agentic-bot-azure-backend:latest` | `8000` | [https://aca-rag-backend.salmonriver-feff8fb1.eastus.azurecontainerapps.io/docs](https://aca-rag-backend.salmonriver-feff8fb1.eastus.azurecontainerapps.io/docs) |
+| **Streamlit UI** | `aca-rag-frontend` | `tadevilas/agentic-bot-azure-frontend:latest` | `8501` | `https://<YOUR_FRONTEND_URL>.azurecontainerapps.io` |
+| **FastAPI Backend** | `aca-rag-backend` | `tadevilas/agentic-bot-azure-backend:latest` | `8000` | `https://<YOUR_BACKEND_URL>.azurecontainerapps.io` |
 
 ### 9.2 Verification Commands
 
 ```powershell
 # Check Backend Health
-curl https://aca-rag-backend.salmonriver-feff8fb1.eastus.azurecontainerapps.io/health
+curl https://<YOUR_BACKEND_URL>/health
 
 # Check Frontend Health
-curl https://aca-rag-frontend.salmonriver-feff8fb1.eastus.azurecontainerapps.io/_stcore/health
+curl https://<YOUR_FRONTEND_URL>/_stcore/health
 
 # Run automated test suite locally
 uv run pytest -v
